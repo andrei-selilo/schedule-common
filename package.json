@@ -1,0 +1,46 @@
+{
+  "name": "schedule-common",
+  "version": "1.0.0",
+  "description": "Schedule common",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "lint": "eslint .  --ext .js,.ts",
+    "format": "prettier --write --single-quote \"{src,test}/**/*{.js,.ts}\"",
+    "start:local": "func() { [[ $# < 1 ]] && echo 'Handler name required' || ts-node src/infrastructure/handlers/$1/local.ts; }; func",
+    "compose": "func() { [[ $# < 1 ]] && echo 'Environment name required' || (docker-compose -f docker-compose.$1.yml $2); }; func",
+    "compose:clean": "func() { [[ $# < 1 ]] && echo 'Environment name required' || npm run compose $1 kill && npm run compose $1 down && docker network prune && docker volume prune; }; func",
+    "config-orm": "node config/orm/generate-config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^3.4.1",
+    "pino": "^5.13.6",
+    "ramda": "^0.26.1",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.20",
+    "typescript": "^3.7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.7",
+    "@types/pino": "^5.8.13",
+    "@types/ramda": "^0.26.33",
+    "@typescript-eslint/eslint-plugin": "^2.29.0",
+    "@typescript-eslint/parser": "^2.29.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-typescript": "^7.2.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-import-resolver-typescript": "^2.0.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-json": "^2.1.1",
+    "eslint-plugin-prettier": "^3.1.3",
+    "prettier": "^2.0.5",
+    "ts-node": "^8.5.4"
+  }
+}

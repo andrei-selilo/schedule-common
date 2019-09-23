@@ -1,0 +1,16 @@
+# Local compose file
+version: "3.5"
+
+services:
+  db1:
+    image: mongo:latest
+    container_name: "database1"
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - ./tmp/database1/data:/data/db
+      # - ./tmp/database1/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
+    ports:
+      - '27017-27019:27017-27019'
+    command: mongod # --logpath=/dev/null # --quiet
